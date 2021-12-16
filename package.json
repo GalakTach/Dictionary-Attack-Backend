@@ -1,0 +1,31 @@
+{
+  "name": "Dictionary-Attack-Backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.14.0",
+    "mongodb": "^4.2.1",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dictionary-Attack/Dictionary-Attack-Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dictionary-Attack/Dictionary-Attack-Backend/issues"
+  },
+  "homepage": "https://github.com/Dictionary-Attack/Dictionary-Attack-Backend#readme"
+}
