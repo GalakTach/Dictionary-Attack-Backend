@@ -7,10 +7,11 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true })); // body-parser
 app.use(bodyParser.json()); // body-parser
+require('dotenv').config()
 
 app.use(routes);
 
-const listener = app.listen(3000, function () {
+const listener = app.listen(5000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
@@ -40,17 +41,22 @@ function getDefinition(word, this_response){
     }
     let body = "";
     let parsed={};
+    let wordFound = true;
     http.get(options, (res) => {
         res.on("data", (d) => {
           body += d;
         });
-  
+
         res.on("end", () => {
           body = JSON.parse(body)
           try {
   
-            if(body.error)
+            if(body.error){
+              wordFound = false;
               throw new Error('no results found')
+             
+            }
+              
   
             parsed.id = body.id;
             parsed.word = body.word;
@@ -81,7 +87,7 @@ function getDefinition(word, this_response){
             console.log('Overall: ', e.message);
             parsed.error = body.error;
           }
-          var firstDef = parsed.definitions[0];
+          var firstDef = (wordFound) ? parsed.definitions[0] : "" ;
           console.log(firstDef);
           parsed.definitions = firstDef;
           this_response.json(parsed);
