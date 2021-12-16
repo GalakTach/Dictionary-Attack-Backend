@@ -1,6 +1,6 @@
 const express = require("express");
 const axios = require("axios");
-const routes = require('./routes');
+
 const app = express();
 const http = require("https");
 const cors = require("cors");
@@ -8,21 +8,25 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true })); // body-parser
 app.use(bodyParser.json()); // body-parser
 require('dotenv').config()
+const mongoose = require("mongoose");
 
-app.use(routes);
+
+require('./app/routes/routes.js')(app);
 
 const listener = app.listen(5000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
-const instance = axios.create({
-    baseURL: 'https://od-api.oxforddictionaries.com',
-    headers: {
-        'Accept': 'application/json',
-        'app_id': process.env.OXFORD_DICT_API_ID,
-        'app_key': process.env.OXFORD_DICT_API_KEY
-    }
-});
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.DATABASE_URI, {
+  useNewUrlParser: true,
+}).then(()=> {
+  console.log("successfully connected to the database");
+}).catch((err)=> {
+    console.log("Could not connect to the database. Error...", err);
+    process.exit();
+})
+
 
 app.get("/api/validateWord/:word", (req, res) => {
     getDefinition(req.params.word, res)
