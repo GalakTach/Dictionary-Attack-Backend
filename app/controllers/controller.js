@@ -1,7 +1,8 @@
 const App = require("../models/model.js");
 
 exports.findAll = (req,res) => {
-    App.find()
+    var mysort = {highscore : -1}
+    App.find().sort(mysort)
         .then((data) => {
             res.send(data);
         })
