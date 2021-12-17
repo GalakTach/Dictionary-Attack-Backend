@@ -4,12 +4,18 @@ const axios = require("axios");
 const app = express();
 const http = require("https");
 const cors = require("cors");
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true })); // body-parser
 app.use(bodyParser.json()); // body-parser
 require('dotenv').config()
-const mongoose = require("mongoose");
 
+const mongoose = require("mongoose");
+app.use(cors(corsOptions));
 
 require('./app/routes/routes.js')(app);
 
