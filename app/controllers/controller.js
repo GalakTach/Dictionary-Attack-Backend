@@ -2,7 +2,8 @@ const App = require("../models/model.js");
 
 exports.findAll = (req,res) => {
     var mysort = {highscore : -1}
-    App.find().sort(mysort)
+    
+    App.find().sort(mysort).limit(3)
         .then((data) => {
             res.send(data);
         })
