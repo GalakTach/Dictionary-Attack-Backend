@@ -22,7 +22,7 @@ app.use(cors(corsOptions));
 require('./app/routes/routes.js')(app);
 //This function allows our application to listen on the given port and host
 const port = process.env.PORT || 5000;
-app.listen(port, () =>{
+app.listen(port, function(){
   console.log(`App listening on port ${port}`);
   console.log('Press Ctrl+C to quit.');
 });
