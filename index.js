@@ -5,9 +5,10 @@ const app = express();
 const http = require("https");
 const cors = require("cors");
 const corsOptions ={
-  origin:'http://localhost:3000', 
+  origin:['http://localhost:3000','https://dictionary-attack.netlify.app'], 
   credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200
+  optionSuccessStatus:200,
+  
 }
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true })); // body-parser
@@ -23,6 +24,7 @@ const listener = app.listen(5000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
+//this section of code allows us to connect to our Mongo Database
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DATABASE_URI, {
   useNewUrlParser: true,
@@ -33,11 +35,12 @@ mongoose.connect(process.env.DATABASE_URI, {
     process.exit();
 })
 
-
+//this is the method used to validate the word through the Oxford API
 app.get("/api/validateWord/:word", (req, res) => {
     getDefinition(req.params.word, res)
 })
 
+//This method calls the oxford api and validates the words. The response returned has the word and definition
 function getDefinition(word, this_response){
     const options = {
         host: "od-api.oxforddictionaries.com",
