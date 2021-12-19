@@ -20,11 +20,10 @@ const mongoose = require("mongoose");
 app.use(cors(corsOptions));
 
 require('./app/routes/routes.js')(app);
-
 //This function allows our application to listen on the given port and host
-const listener = app.listen(5000, function () {
+const listener = app.listen(5000 || process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
-});
+}, process.env.PORT);
 
 //this section of code allows us to connect to our Mongo Database
 //this is for a new version
