@@ -26,6 +26,10 @@ app.listen(port, function(){
   console.log(`App listening on port ${port}`);
   console.log('Press Ctrl+C to quit.');
 });
+  
+app.get( '/', (req,res) => {
+  res.json({message:"Hello from server"});
+})
 
 //this section of code allows us to connect to our Mongo Database
 //this is for a new version
