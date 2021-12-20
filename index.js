@@ -10,6 +10,7 @@ const corsOptions ={
   optionSuccessStatus:200,
   
 }
+//body parser allows us to parse the body of the response from the frontend
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true })); // body-parser
 app.use(bodyParser.json()); // body-parser
@@ -19,12 +20,19 @@ const mongoose = require("mongoose");
 app.use(cors(corsOptions));
 
 require('./app/routes/routes.js')(app);
-
-const listener = app.listen(5000, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+//This function allows our application to listen on the given port and host
+const port = process.env.PORT || 5000;
+app.listen(port, function(){
+  console.log(`App listening on port ${port}`);
+  console.log('Press Ctrl+C to quit.');
 });
+  
+app.get( '/', (req,res) => {
+  res.json({message:"Hello from server"});
+})
 
 //this section of code allows us to connect to our Mongo Database
+//this is for a new version
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DATABASE_URI, {
   useNewUrlParser: true,
