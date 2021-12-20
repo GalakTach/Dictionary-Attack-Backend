@@ -28,8 +28,9 @@ app.listen(port, function(){
 });
   
 app.get( '/', (req,res) => {
-  res.json({message:"Hello from server"});
+  res.json({message:"Hello World"});
 })
+
 
 //this section of code allows us to connect to our Mongo Database
 //this is for a new version
@@ -47,6 +48,7 @@ mongoose.connect(process.env.DATABASE_URI, {
 app.get("/api/validateWord/:word", (req, res) => {
     getDefinition(req.params.word, res)
 })
+
 
 //This method calls the oxford api and validates the words. The response returned has the word and definition
 function getDefinition(word, this_response){
