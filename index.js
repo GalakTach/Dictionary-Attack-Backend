@@ -28,7 +28,7 @@ app.listen(port, function(){
 });
   
 app.get( '/', (req,res) => {
-  res.json({message:"Hello from server"});
+  res.json({message:"Hello World"});
 })
 
 //this section of code allows us to connect to our Mongo Database
